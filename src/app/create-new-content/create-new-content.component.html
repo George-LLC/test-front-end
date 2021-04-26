@@ -1,13 +1,16 @@
-<div class="create-new">
-	<button type="button" pButton pRipple class="p-button-secondary btn-create-new">create new content</button>
+<!-- button for opening Dialog  -->
+<div class="create-new" *ngIf="!showModal">
+	<button type="button" (click)="showModal = true" pButton pRipple class="p-button-secondary btn-create-new">create new content</button>
 </div>
 
-<div class="modalCreateNew">
-	<form [formGroup]="formCreateNew">
+
+<!-- Dialog  -->
+<div class="modalCreateNew" *ngIf="showModal">
+	<form [formGroup]="formCreateNew" (ngSubmit)="onSubmit()">
 		<div class="modalCreateNew__header">
 			<div class="modalCreateNew__imgHeader">
 				<img src="../../assets/img/create-new-content/fruits.jpg" alt="">
-				<button class="modalCreateNew__back"><i class="pi pi-arrow-left"></i></button>
+				<button class="modalCreateNew__back" (click)="showModal = false"><i class="pi pi-arrow-left"></i></button>
 			</div>
 			<h3 class="modalCreateNew__imgTitle">10 healthy fruits you should eat</h3>
 			<a class="modalCreateNew__imgLink" target="_blank" href="http://www.healthytips.com">healthytips.com</a>
@@ -20,30 +23,42 @@
 			<div class="detail-order__source">
 				<div class="detail-order__inputTitle">source</div>
 				<div class="p-field">
-					<!--          <label for="source">Source</label>-->
-					<input id="source" type="username" aria-describedby="source-help" class="ng-invalid ng-dirty"
-						placeholder="enter a link" pInputText />
-					<small id="source-help" class="p-error">*Please type the link</small>
+					<input id="source" type="username"
+						[ngClass]="{ 'setBorder': formCreateNew.get('source').touched && formCreateNew.get('source').invalid }"
+						placeholder="enter a link" pInputText formControlName="source" />
+					<small *ngIf="formCreateNew.get('source').touched && formCreateNew.get('source').invalid"
+						class="p-error">Link
+						is not available.</small>
 				</div>
 			</div>
 			<div class="detail-order__source">
 				<div class="detail-order__inputTitle">instructions</div>
-				<textarea rows="3" cols="30" placeholder="enter your instructions" pInputTextarea></textarea>
+				<textarea rows="3" cols="30" placeholder="enter your instructions" pInputTextarea
+					[ngClass]="{ 'setBorder': formCreateNew.get('inputTextarea').touched && formCreateNew.get('inputTextarea').invalid }"
+					formControlName="inputTextarea"></textarea>
+				<small *ngIf="formCreateNew.get('inputTextarea').touched && formCreateNew.get('inputTextarea').invalid"
+					class="p-error">Text should be max 30 / {{max_words}} words</small>
 			</div>
-			<div class="detail-order__row">
-				<div class="detail-order__number">
+			<div class="detail-order__row p-grid p-fluid">
+				<div class="detail-order__number p-field p-col-4">
 					<div class="detail-order__inputTitle">number of writers</div>
-					<p-dropdown [options]="items" formControlName="nmbrWriters" placeholder="Select Item"
+					<p-dropdown [options]="items" (onChange)="chengeDropdown($event.value)" formControlName="nmbrWriters"
+						placeholder="Select number of writers"
+						[ngClass]="{ 'ng-dirty': formCreateNew.get('nmbrWriters').touched && formCreateNew.get('nmbrWriters').invalid }"
 						[virtualScroll]="true" [itemSize]="31" [filter]="false"></p-dropdown>
+					<small *ngIf="formCreateNew.get('nmbrWriters').touched && formCreateNew.get('nmbrWriters').invalid"
+						class="p-error">Dropdown
+						is not available.</small>
 				</div>
-				<div class="detail-order__source budget">
+				<div class="detail-order__source budget p-field p-col-4">
 					<div class="detail-order__inputTitle">budget (USD)</div>
-					<div class="p-field p-col-12 p-md-3">
-						<!--            <label for="minmax">Budget (USD)</label>-->
-						<p-inputNumber formControlName="value4" inputId="minmax" inputId="minmax" mode="decimal" [min]="5"
-							[max]="500">
-						</p-inputNumber>
-					</div>
+					<p-inputNumber formControlName="value4" inputId="minmax"
+						(onInput)="maxNumber($event)"
+						[ngClass]="{ 'ng-dirty': formCreateNew.get('value4').touched && formCreateNew.get('value4').invalid }">
+					</p-inputNumber>
+					<small *ngIf="formCreateNew.get('value4').touched && formCreateNew.get('value4').invalid"
+						class="p-error">Value
+						is not available. min value 5 / {{value4}} /  max value 500</small>
 				</div>
 			</div>
 		</div>
@@ -54,13 +69,31 @@
 				<ul *ngFor="let options of selectedOptions; index as i">
 					<li>
 						<label [for]="i">{{options.name}}</label>
-						<div class="prcent">{{options.text}}</div>
-						<p-radioButton name="selectedOpt" [value]="options.name" formControlName="selectedOpt" [inputId]="i">
+						<div class="percent">{{options.text}}</div>
+						<p-radioButton (onClick)="onCklickRadiobutton(options.name)" name="selectedOpt" [value]="options.name" formControlName="selectedOpt" [inputId]="i">
 						</p-radioButton>
 					</li>
 				</ul>
 			</div>
-			<p-button class="submit" label="Submit"></p-button>
+
+			<button class="submit" pButton pRipple label="SUBMIT" [disabled]="formCreateNew.invalid">
+				<div class="submit__icon">
+					<svg width="25" height="25" viewBox="0 0 25 25" fill="#ffffff" xmlns="http://www.w3.org/2000/svg">
+						<path d="M0 1H3.0374L6.42424 17.7756C6.45112 18.4521 6.98872 18.9932 7.66071 18.9932H23.9498"
+							stroke="#ffffff" />
+						<path
+							d="M3.5 3.81398H22.9015C23.3316 3.81398 23.7079 3.97632 23.9767 4.30101C24.2186 4.6257 24.3261 5.03157 24.2455 5.46449L22.7133 13.5006C22.5521 14.3664 21.7188 15.0428 20.8586 15.0699H5.86646"
+							stroke="#ffffff" />
+						<path
+							d="M8.34888 22.8354C8.34888 21.9179 9.09579 21.1708 9.99925 21.1708C10.9027 21.1708 11.6496 21.9179 11.6496 22.8354C11.6496 23.7529 10.9027 24.5 9.99925 24.5C9.09579 24.5 8.34888 23.7529 8.34888 22.8354Z"
+							stroke="#ffffff" />
+						<path
+							d="M18.2676 22.8354C18.2676 21.9179 19.0145 21.1708 19.918 21.1708C20.8214 21.1708 21.5683 21.9179 21.5683 22.8354C21.5683 23.7529 20.8214 24.5 19.918 24.5C19.0145 24.5 18.2676 23.7529 18.2676 22.8354Z"
+							stroke="#ffffff" />
+					</svg>
+				</div>
+				<div class="submit__count">$ {{fullPrice()}}</div>
+			</button>
 		</div>
 
 		<div class="detail-order__divider"></div>

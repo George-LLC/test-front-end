@@ -1,16 +1,15 @@
+/* Button for opening Modal  */
 .create-new {
 	display: flex;
 	justify-content: center;
 	margin-top: 10%;
 }
-.btn-create-new {
-}
 
+
+/* Modal  */
 .modalCreateNew {
-	background-color: antiquewhite;
 	max-width: 600px;
 	margin: auto;
-	/*display: none;*/
 }
 .modalCreateNew__header {
 }
@@ -29,6 +28,10 @@
 	border-radius: 50%;
 	background-color: #feffff;
 	border: unset;
+  cursor: pointer;
+}
+.modalCreateNew__back:hover {
+  opacity: 0.9;
 }
 .modalCreateNew__back i {
 	color: #b9b9b9;
@@ -100,8 +103,10 @@
 }
 .budget {
 	margin: 0;
+	width: 48%;
 }
 .detail-order__number {
+	width: 48%;
 }
 .p-col-12 {
 }
@@ -131,13 +136,33 @@
 }
 .p-field-radiobutton ul li {
 	display: flex;
-	justify-content: space-between;
+	/* justify-content: space-between; */
 	font-weight: 400;
 	font-size: 20px;
 }
-.p-field-radiobutton ul li .prcent {
-	color: rgba(0, 0, 0, 0.35);
+.p-field-radiobutton ul li label {
+	width: 45%;
 }
-.detail-order__selectOptions > .submit > button {
-	width: 80%;
+.p-field-radiobutton ul li .percent {
+	color: rgba(0, 0, 0, 0.35);
+	width: 57%;
+}
+.submit {
+	position: relative;
+	width: 100%;
+	margin: 0 15px;
+	width: calc(100% - 30px);
+	font-size: 22px;
+	font-weight: 700;
+}
+.submit__icon {
+	position: absolute;
+	left: 15px;
+}
+.submit__count {
+	position: absolute;
+	right: 15px;
+}
+.setBorder {
+	border: 1.5px solid red !important;
 }
