@@ -1,66 +1,70 @@
 <div class="create-new">
-  <button type="button" pButton pRipple class="p-button-secondary btn-create-new">create new content</button>
+	<button type="button" pButton pRipple class="p-button-secondary btn-create-new">create new content</button>
 </div>
 
 <div class="modalCreateNew">
-  <form [formGroup]="formCreateNew">
-    <div class="modalCreateNew__header">
-      <div class="modalCreateNew__imgHeader">
-        <img src="../../assets/img/create-new-content/fruits.jpg" alt="">
-        <button class="modalCreateNew__back"><i class="pi pi-arrow-left"></i></button>
-      </div>
-      <h3 class="modalCreateNew__imgTitle">10 healthy fruits you should eat</h3>
-      <a class="modalCreateNew__imgLink" target="_blank" href="http://www.healthytips.com">healthytips.com</a>
-    </div>
-    <div class="modalCreateNew__deOrdtitle">Enter the details of the article you want to order</div>
+	<form [formGroup]="formCreateNew">
+		<div class="modalCreateNew__header">
+			<div class="modalCreateNew__imgHeader">
+				<img src="../../assets/img/create-new-content/fruits.jpg" alt="">
+				<button class="modalCreateNew__back"><i class="pi pi-arrow-left"></i></button>
+			</div>
+			<h3 class="modalCreateNew__imgTitle">10 healthy fruits you should eat</h3>
+			<a class="modalCreateNew__imgLink" target="_blank" href="http://www.healthytips.com">healthytips.com</a>
+		</div>
+		<div class="modalCreateNew__deOrdtitle">Enter the details of the article you want to order</div>
 
-    <div class="detail-order__divider"></div>
+		<div class="detail-order__divider"></div>
 
-    <div class="modalCreateNew__detail detail-order">
-      <div class="detail-order__source">
-        <div class="detail-order__inputTitle">source</div>
-        <div class="p-field">
-<!--          <label for="source">Source</label>-->
-          <input id="source" type="username" aria-describedby="source-help" class="ng-invalid ng-dirty" placeholder="enter a link" pInputText />
-          <small id="source-help" class="p-error">*Please type the link</small>
-        </div>
-      </div>
-      <div class="detail-order__source">
-        <div class="detail-order__inputTitle">instructions</div>
-        <textarea rows="3" cols="30" placeholder="enter your instructions" pInputTextarea></textarea>
-      </div>
-      <div class="detail-order__row">
-        <div class="detail-order__number">
-          <div class="detail-order__inputTitle">number of writers</div>
-          <p-dropdown [options]="items" formControlName="nmbrWriters" placeholder="Select Item" [virtualScroll]="true" [itemSize]="31" [filter]="false"></p-dropdown>
-        </div>
-        <div class="detail-order__source budget">
-          <div class="detail-order__inputTitle">budget (USD)</div>
-          <div class="p-field p-col-12 p-md-3">
-<!--            <label for="minmax">Budget (USD)</label>-->
-            <p-inputNumber formControlName="value4" inputId="minmax" inputId="minmax" mode="decimal" [min]="5" [max]="500">
-            </p-inputNumber>
-          </div>
-        </div>
-      </div>
-    </div>
+		<div class="modalCreateNew__detail detail-order">
+			<div class="detail-order__source">
+				<div class="detail-order__inputTitle">source</div>
+				<div class="p-field">
+					<!--          <label for="source">Source</label>-->
+					<input id="source" type="username" aria-describedby="source-help" class="ng-invalid ng-dirty"
+						placeholder="enter a link" pInputText />
+					<small id="source-help" class="p-error">*Please type the link</small>
+				</div>
+			</div>
+			<div class="detail-order__source">
+				<div class="detail-order__inputTitle">instructions</div>
+				<textarea rows="3" cols="30" placeholder="enter your instructions" pInputTextarea></textarea>
+			</div>
+			<div class="detail-order__row">
+				<div class="detail-order__number">
+					<div class="detail-order__inputTitle">number of writers</div>
+					<p-dropdown [options]="items" formControlName="nmbrWriters" placeholder="Select Item"
+						[virtualScroll]="true" [itemSize]="31" [filter]="false"></p-dropdown>
+				</div>
+				<div class="detail-order__source budget">
+					<div class="detail-order__inputTitle">budget (USD)</div>
+					<div class="p-field p-col-12 p-md-3">
+						<!--            <label for="minmax">Budget (USD)</label>-->
+						<p-inputNumber formControlName="value4" inputId="minmax" inputId="minmax" mode="decimal" [min]="5"
+							[max]="500">
+						</p-inputNumber>
+					</div>
+				</div>
+			</div>
+		</div>
 
-    <div class="detail-order__selectOptions">
-      <div class="detail-order__soptTitle">Please select options (optional)</div>
-      <div class="p-field-radiobutton">
-        <ul *ngFor="let options of selectedOptions; index as i">
-          <li>
-            <label [for]="i">{{options.name}}</label>
-            <div>{{options.text}}</div>
-            <p-radioButton name="selectedOpt" [value]="options.name" formControlName="selectedOpt" [inputId]="i"></p-radioButton>
-          </li>
-        </ul>
-      </div>
-      <button pButton pRipple label="Submit"></button>
-    </div>
+		<div class="detail-order__selectOptions">
+			<div class="detail-order__soptTitle">Please select options (optional)</div>
+			<div class="p-field-radiobutton">
+				<ul *ngFor="let options of selectedOptions; index as i">
+					<li>
+						<label [for]="i">{{options.name}}</label>
+						<div class="prcent">{{options.text}}</div>
+						<p-radioButton name="selectedOpt" [value]="options.name" formControlName="selectedOpt" [inputId]="i">
+						</p-radioButton>
+					</li>
+				</ul>
+			</div>
+			<p-button class="submit" label="Submit"></p-button>
+		</div>
 
-    <div class="detail-order__divider"></div>
+		<div class="detail-order__divider"></div>
 
-  </form>
+	</form>
 
 </div>
